@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/icon.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
@@ -8,6 +8,11 @@
 custom_solver_bias = 0.0
 extents = Vector2( 10, 10 )
 _sections_unfolded = [ "Resource" ]
+
+[sub_resource type="RectangleShape2D" id=2]
+
+custom_solver_bias = 0.0
+extents = Vector2( 110.25, 10 )
 
 [node name="Root" type="Node" index="0"]
 
@@ -46,5 +51,11 @@ collision/safe_margin = 0.08
 position = Vector2( 531.081, 595.948 )
 scale = Vector2( 5.90972, 1 )
 texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground" index="1"]
+
+position = Vector2( 530.886, 598.69 )
+scale = Vector2( 1.67999, 2.61876 )
+shape = SubResource( 2 )
 
 
