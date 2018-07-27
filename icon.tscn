@@ -1,27 +1,50 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://src/icon.gd" type="Script" id=1]
+[ext_resource path="res://icon.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
 extents = Vector2( 10, 10 )
+_sections_unfolded = [ "Resource" ]
 
-[node name="player" type="KinematicBody2D" index="0"]
+[node name="Root" type="Node" index="0"]
 
-position = Vector2( 605, 406.062 )
-scale = Vector2( 1, 1.59181 )
+_sections_unfolded = [ "Transform", "Visibility", "collision" ]
+
+[node name="Player" type="KinematicBody2D" parent="." index="0"]
+
+position = Vector2( 500, 500 )
 input_pickable = false
 collision_layer = 1
 collision_mask = 1
 collision/safe_margin = 0.08
 script = ExtResource( 1 )
-_sections_unfolded = [ "Transform", "Visibility" ]
+_sections_unfolded = [ "Transform" ]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
+[node name="Sprite" type="Sprite" parent="Player" index="0"]
 
-position = Vector2( 1.27679, -2.55836 )
-scale = Vector2( 1.85375, 2.14607 )
+texture = ExtResource( 2 )
+_sections_unfolded = [ "Offset", "Transform" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" index="1"]
+
+scale = Vector2( 2, 2 )
 shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Ground" type="KinematicBody2D" parent="." index="1"]
+
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+collision/safe_margin = 0.08
+
+[node name="icon" type="Sprite" parent="Ground" index="0"]
+
+position = Vector2( 531.081, 595.948 )
+scale = Vector2( 5.90972, 1 )
+texture = ExtResource( 2 )
 
 
