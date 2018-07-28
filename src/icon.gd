@@ -1,45 +1,50 @@
 extends KinematicBody2D
 
-var speed = 250
-var GRAVITY = 10
-var velocity = Vector2()
-var acceleration = Vector2()
+const GRAVITY_VEC = Vector2(0, 900)
+const FLOOR_NORMAL = Vector2(0, -1)
+const SLOPE_SLIDE_STOP = 25.0
+const MIN_ONAIR_TIME = 0.1
+const WALK_SPEED = 250 # pixels/sec
+const JUMP_SPEED = 480
+const SIDING_CHANGE_SPEED = 10
 
-var movement_factor = 10
-var input_maps = {
-	'player_right': Vector2(movement_factor, 0),
-	'player_left': Vector2(-movement_factor, 0),
-	'player_up': Vector2(0, -movement_factor),
-	'player_down': Vector2(0, movement_factor),
-	'player_jump': Vector2(0, -50),
-	}
-
-func get_input():
-	
-	for key in input_maps.keys():
-		if Input.is_action_pressed(key):
-			acceleration += input_maps[key]
+var linear_vel = Vector2()
+var onair_time = 0 #
+var on_floor = false
 
 
 func _physics_process(delta):
-	
-	get_input()
-	
-	velocity += acceleration # add on acceleration to velocity
-	
-	# Prevent expensive floating-point math.
-	if(abs(acceleration.x) <= 10): 
-		acceleration.x = 0
 
-	if(abs(acceleration.y) <= 10):
-		acceleration.y = 0
-	
-	acceleration = acceleration * 0.3 # Acceleration slows down, 'drag'.
-	
-	acceleration.y += GRAVITY # Add pull of gravity to acceleration
-	
-	velocity = velocity.normalized() * speed # Speed it up!
-	
-#	move_and_collide(velocity * delta)
-	move_and_slide(velocity, Vector2(0, -1))
+	#increment counters
+	onair_time += delta
+
+	### MOVEMENT ###
+
+	# Apply Gravity
+	linear_vel += delta * GRAVITY_VEC
+	# Move and Slide
+	linear_vel = move_and_slide(linear_vel, FLOOR_NORMAL, SLOPE_SLIDE_STOP)
+	# Detect Floor
+	if is_on_floor():
+		onair_time = 0
+
+	on_floor = onair_time < MIN_ONAIR_TIME
+
+	### CONTROL ###
+
+	# Horizontal Movement
+	var target_speed = 0
+	if Input.is_action_pressed("player_left"):
+		target_speed += -1
+	if Input.is_action_pressed("player_right"):
+		target_speed +=  1
+
+	target_speed *= WALK_SPEED
+	linear_vel.x = lerp(linear_vel.x, target_speed, 0.1)
+
+	# Jumping
+	if on_floor and Input.is_action_just_pressed("player_jump"):
+		linear_vel.y = -JUMP_SPEED
+
+
 
