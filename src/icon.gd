@@ -34,7 +34,7 @@ func _physics_process(delta):
 	if(abs(acceleration.y) <= 10):
 		acceleration.y = 0
 	
-	acceleration = acceleration / 0.3 # Acceleration slows down, 'drag'.
+	acceleration = acceleration * 0.3 # Acceleration slows down, 'drag'.
 	
 	acceleration.y += GRAVITY # Add pull of gravity to acceleration
 	
