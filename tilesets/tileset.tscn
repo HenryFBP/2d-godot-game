@@ -2,7 +2,7 @@
 
 [ext_resource path="res://tilesets/tileset.png" type="Texture" id=1]
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D" type="Node2D" index="0"]
 
 position = Vector2( 15.6966, 2.85394 )
 
@@ -36,7 +36,6 @@ polygon = PoolVector2Array( 32, 32, 32, -32, -32, -32, -32, 32 )
 
 [node name="WallGround" type="Sprite" parent="." index="1"]
 
-editor/display_folded = true
 position = Vector2( 44.3034, -2.85394 )
 texture = ExtResource( 1 )
 centered = false

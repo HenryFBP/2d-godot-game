@@ -33,6 +33,19 @@ func load_new_tiles():
 	self.tile_set.create_tile(10)
 	self.tile_set.tile_set_texture(10, load("res://icon.png"))
 	
+	var sb = StaticBody2D.new() # TODO this doesn't work, no collision...
+		
+	var shape = CollisionPolygon2D.new()
+	shape.polygon = PoolVector2Array([ Vector2(32, 32),
+		Vector2(32, -32),
+		Vector2(-32, -32),
+		Vector2(-32, 32),])
+	
+	sb.add_child(shape)
+
+	
+	self.tile_set.tile_set_shape(10, 1, sb)
+	
 	pass
 
 func _ready():
@@ -52,9 +65,15 @@ func _input(event):
 	
 	if event.is_action_pressed('left_mouse'):
 		
-		var wloc = self.world_to_map(get_global_mouse_position())
+		var mloc = get_global_mouse_position()
+		
+		var wloc = self.world_to_map(mloc)
 		
 		randomize_cell(wloc)
+	
+	if event is InputEventMouseMotion:
+		pass
+
 
 #func _process(delta):
 #	# Called every frame. Delta is time since last frame.

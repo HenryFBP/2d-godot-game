@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://src/player.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
-[ext_resource path="res://tilesets/tileset.tres" type="TileSet" id=3]
-[ext_resource path="res://src/TileMap.gd" type="Script" id=4]
+[ext_resource path="res://GUI.tscn" type="PackedScene" id=3]
+[ext_resource path="res://tilesets/tileset.tres" type="TileSet" id=4]
+[ext_resource path="res://src/TileMap.gd" type="Script" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -11,7 +12,7 @@ custom_solver_bias = 0.0
 extents = Vector2( 10, 10 )
 _sections_unfolded = [ "Resource" ]
 
-[node name="Root" type="Node" index="0"]
+[node name="Root" type="Node"]
 
 _sections_unfolded = [ "Transform", "Visibility", "collision" ]
 
@@ -62,51 +63,13 @@ editor_draw_screen = true
 editor_draw_limits = false
 editor_draw_drag_margin = false
 
-[node name="GUI" type="Control" parent="Player/Camera2D" index="0"]
-
-editor/display_folded = true
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = -760.0
-margin_top = -444.0
-margin_right = 760.0
-margin_bottom = 446.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-_sections_unfolded = [ "Anchor", "Focus", "Margin", "Visibility" ]
-
-[node name="Label" type="Label" parent="Player/Camera2D/GUI" index="0"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 560.0
-margin_top = 300.0
-margin_right = 700.0
-margin_bottom = 400.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
-text = "hello"
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
+[node name="GUI" parent="Player/Camera2D" index="0" instance=ExtResource( 3 )]
 
 [node name="TileMap" type="TileMap" parent="." index="1"]
 
 position = Vector2( -87.5717, 0.663422 )
 mode = 0
-tile_set = ExtResource( 3 )
+tile_set = ExtResource( 4 )
 cell_size = Vector2( 50, 50 )
 cell_quadrant_size = 1
 cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
@@ -122,7 +85,7 @@ collision_mask = 1
 occluder_light_mask = 1
 format = 1
 tile_data = PoolIntArray( -589813, 0, 0, -196601, 0, 0, -196600, 0, 0, -196599, 0, 0, -196598, 0, 0, -196594, 2, 0, -196593, 0, 0, -196592, 0, 0, -196591, 0, 0, -196590, 0, 0, -131059, 2, 0, -131058, 4, 0, -131057, 4, 0, -131056, 4, 0, -131055, 4, 0, -131054, 4, 0, -65524, 2, 0, -65523, 4, 0, -65522, 4, 0, -65521, 4, 0, -65520, 4, 0, -65519, 4, 0, -65518, 4, 0, 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0, 11, 0, 0, 12, 0, 0, 13, 0, 0, 14, 0, 0, 15, 0, 0, 16, 0, 0, 17, 0, 0, 18, 0, 0, 19, 0, 0, 20, 0, 0, 21, 0, 0, 22, 0, 0 )
-script = ExtResource( 4 )
+script = ExtResource( 5 )
 _sections_unfolded = [ "Cell", "Collision", "Material", "Transform", "Visibility", "Z Index" ]
 
 
