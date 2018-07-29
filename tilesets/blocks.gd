@@ -10,3 +10,4 @@ var blocks = [
 
 func _ready():
 	print(blocks)
+	pass
