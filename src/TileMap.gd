@@ -33,20 +33,18 @@ func load_new_tiles():
 	self.tile_set.create_tile(10)
 	self.tile_set.tile_set_texture(10, load("res://icon.png"))
 	
-	var sb = StaticBody2D.new() # TODO this doesn't work, no collision...
-		
-	var shape = CollisionPolygon2D.new()
-	shape.polygon = PoolVector2Array([ Vector2(32, 32),
-		Vector2(32, -32),
-		Vector2(-32, -32),
-		Vector2(-32, 32),])
+	var shape = ConvexPolygonShape2D.new()
 	
-	sb.add_child(shape)
-
+	shape.set_point_cloud(PoolVector2Array([[-32,32], [32,-32], [32,-32], [32,32]]))
 	
-	self.tile_set.tile_set_shape(10, 1, sb)
+	var trans = Transform2D()
 	
-	pass
+	trans.x = Vector2(1, 0)
+	trans.y = Vector2(0, 1)
+	
+	self.tile_set.tile_add_shape(10, shape, trans, false)
+	
+	return
 
 func _ready():
 	# Called when the node is added to the scene for the first time.
@@ -68,6 +66,9 @@ func _input(event):
 		var mloc = get_global_mouse_position()
 		
 		var wloc = self.world_to_map(mloc)
+		
+		self.get_node("Node2D").draw_circle_arc(mloc, 100, 0, 359,
+			Color(rand_range(0.0, 1.0), rand_range(0.0, 1.0), rand_range(0.0, 1.0)))
 		
 		randomize_cell(wloc)
 	
