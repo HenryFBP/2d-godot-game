@@ -67,7 +67,7 @@ func _input(event):
 		
 		var wloc = self.world_to_map(mloc)
 		
-		self.get_node("Node2D").set_draw_circle_arc(mloc, 100, 0, 359,
+		self.get_node("Node2D").set_draw_circle_arc(mloc, 100, 0, 360,
 			Color(rand_range(0.0, 1.0), rand_range(0.0, 1.0), rand_range(0.0, 1.0)))
 		
 		randomize_cell(wloc)

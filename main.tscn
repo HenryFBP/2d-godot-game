@@ -13,13 +13,13 @@ custom_solver_bias = 0.0
 extents = Vector2( 9.66667, 10.2193 )
 _sections_unfolded = [ "Resource" ]
 
-[node name="Root" type="Node" index="0"]
+[node name="Root" type="Node"]
 
 _sections_unfolded = [ "Transform", "Visibility", "collision" ]
 
 [node name="Player" type="KinematicBody2D" parent="." index="0"]
 
-position = Vector2( 551, -229.342 )
+position = Vector2( 500, -200 )
 input_pickable = false
 collision_layer = 1
 collision_mask = 1
@@ -29,13 +29,12 @@ _sections_unfolded = [ "Collision", "Pickable", "Transform", "collision" ]
 
 [node name="Sprite" type="Sprite" parent="Player" index="0"]
 
-position = Vector2( 0, -1 )
 texture = ExtResource( 2 )
 _sections_unfolded = [ "Offset", "Transform" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player" index="1"]
 
-scale = Vector2( 3, 3 )
+scale = Vector2( 2, 2 )
 shape = SubResource( 1 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
@@ -71,8 +70,8 @@ editor_draw_drag_margin = false
 mode = 0
 tile_set = ExtResource( 4 )
 cell_size = Vector2( 50, 50 )
-cell_quadrant_size = 1
-cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+cell_quadrant_size = 16
+cell_custom_transform = Transform2D( 0, 0, 0, 0, 0, 0 )
 cell_half_offset = 2
 cell_tile_origin = 0
 cell_y_sort = false
@@ -86,7 +85,7 @@ occluder_light_mask = 1
 format = 1
 tile_data = PoolIntArray( -589813, 0, 0, -196601, 0, 0, -196600, 0, 0, -196599, 0, 0, -196598, 0, 0, -196594, 2, 0, -196593, 0, 0, -196592, 0, 0, -196591, 0, 0, -196590, 0, 0, -131059, 2, 0, -131058, 4, 0, -131057, 4, 0, -131056, 4, 0, -131055, 4, 0, -131054, 4, 0, -65524, 2, 0, -65523, 4, 0, -65522, 4, 0, -65521, 4, 0, -65520, 4, 0, -65519, 4, 0, -65518, 4, 0, 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0, 11, 0, 0, 12, 0, 0, 13, 0, 0, 14, 0, 0, 15, 0, 0, 16, 0, 0, 17, 0, 0, 18, 0, 0, 19, 0, 0, 20, 0, 0, 21, 0, 0, 22, 0, 0 )
 script = ExtResource( 5 )
-_sections_unfolded = [ "Material", "Occluder", "Transform", "Visibility", "Z Index" ]
+_sections_unfolded = [ "Cell", "Collision", "Material", "Occluder", "Transform", "Visibility", "Z Index" ]
 
 [node name="Node2D" type="Node2D" parent="TileMap" index="0"]
 
