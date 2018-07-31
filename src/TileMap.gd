@@ -34,15 +34,14 @@ func load_new_tiles():
 	self.tile_set.tile_set_texture(10, load("res://icon.png"))
 	
 	var shape = ConvexPolygonShape2D.new()
+	var pc = PoolVector2Array([ Vector2(0.0, 50.0), Vector2(0.0, 0.0), Vector2(50.0, 0.0), Vector2(50.0, 50.0) ])
 	
-	shape.set_point_cloud(PoolVector2Array([[-32,32], [32,-32], [32,-32], [32,32]]))
+	shape.set_point_cloud(pc)
+
+	print(pc)
+	print(shape.points)
 	
-	var trans = Transform2D()
-	
-	trans.x = Vector2(1, 0)
-	trans.y = Vector2(0, 1)
-	
-	self.tile_set.tile_add_shape(10, shape, trans, false)
+	self.tile_set.tile_add_shape(10, shape, Transform2D(0, Vector2(0, 0)))
 	
 	return
 
