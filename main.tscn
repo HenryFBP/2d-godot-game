@@ -10,7 +10,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
-extents = Vector2( 10, 10 )
+extents = Vector2( 9.66667, 10.2193 )
 _sections_unfolded = [ "Resource" ]
 
 [node name="Root" type="Node" index="0"]
@@ -19,13 +19,13 @@ _sections_unfolded = [ "Transform", "Visibility", "collision" ]
 
 [node name="Player" type="KinematicBody2D" parent="." index="0"]
 
-position = Vector2( 530, -137.342 )
+position = Vector2( 551, -229.342 )
 input_pickable = false
 collision_layer = 1
 collision_mask = 1
 collision/safe_margin = 0.08
 script = ExtResource( 1 )
-_sections_unfolded = [ "Transform" ]
+_sections_unfolded = [ "Collision", "Pickable", "Transform", "collision" ]
 
 [node name="Sprite" type="Sprite" parent="Player" index="0"]
 
