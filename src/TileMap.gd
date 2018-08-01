@@ -1,15 +1,24 @@
 extends TileMap
 
 const blocks = preload("res://tilesets/blocks.gd")
+
 onready var block_list = blocks.new()
+onready var player = get_tree().get_root().get_node('Root/Player')
 
+const reach = 250.0
 
-func randomize_cell(pos):
-	
+func get_random_cell_id():
 	var p = int(rand_range(0, len(self.tile_set.get_tiles_ids())))
 	
 	var tile = self.tile_set.get_tiles_ids()[p]
 	
+	return tile
+
+
+func randomize_cell(pos):
+
+	var tile = get_random_cell_id()
+		
 	self.set_cell(pos.x, pos.y, tile)
 
 # Displays all cells. Useful for debugging.
@@ -27,6 +36,28 @@ func show_cells(pos=Vector2(0, 0), width=4):
 		if x >= width:
 			x = 0
 			y += 1
+
+func add_tile(id, texture):
+	pass
+
+func draw_break_distance():
+	var bd = self.get_node("DebugNode2D/BreakDistance")
+	
+	var mloc = get_global_mouse_position()
+	var wloc = self.world_to_map(mloc)
+	
+	var ploc = player.position
+	var dist = mloc.distance_to(ploc)
+	
+	if dist <= reach:
+		bd.color = Color("#00FF00")
+	else:
+		bd.color = Color("#FF0000")
+
+	bd.start = ploc
+	bd.end = mloc
+
+#func add_new_tile(id, texture,
 
 func load_new_tiles():
 	
@@ -63,10 +94,9 @@ func _input(event):
 	if event.is_action_pressed('left_mouse'):
 		
 		var mloc = get_global_mouse_position()
-		
 		var wloc = self.world_to_map(mloc)
 		
-		self.get_node("Node2D").set_draw_circle_arc(mloc, 100, 0, 360,
+		self.get_node("DebugNode2D/ClickCircle").set_draw_circle_arc(mloc, 30, 0, 360,
 			Color(rand_range(0.0, 1.0), rand_range(0.0, 1.0), rand_range(0.0, 1.0)))
 		
 		randomize_cell(wloc)
@@ -75,7 +105,6 @@ func _input(event):
 		pass
 
 
-#func _process(delta):
-#	# Called every frame. Delta is time since last frame.
-#	# Update game logic here.
-#	pass
+
+func _process(delta):
+	draw_break_distance()
