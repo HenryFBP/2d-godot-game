@@ -1,4 +1,4 @@
-var Block = load('res://tilesets/block.gd')
+const Block = preload('res://tilesets/block.gd')
 
 var blocks = [
 	Block.new(1, 'Wall'),

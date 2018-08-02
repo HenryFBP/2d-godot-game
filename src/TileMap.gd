@@ -2,8 +2,10 @@ extends TileMap
 
 # The world.
 
-const blocks = preload("res://tilesets/blocks.gd")
-const lib = preload("res://src/lib.gd")
+const lib = 	preload("res://src/lib.gd")
+const blocks = 	preload("res://tilesets/blocks.gd")
+const Shapes = preload("res://tilesets/shapes.gd")
+var shapesdata
 
 
 onready var block_list = blocks.new()
@@ -70,8 +72,21 @@ func debug_break_distance():
 	bd.start = ploc
 	bd.end = mloc
 
-func add_new_tile(id, texture, shape, trans=Transform2D(0, Vector2(0, 0))):
+func add_new_tile(id, texture, shape, factor=null, trans=Transform2D(0, Vector2(0, 0))):
+	
+	if factor:
 
+		if typeof(shape) == typeof([]):
+			shape = lib.multiply_listitems(shape, factor)
+
+		elif typeof(shape) == typeof(PoolVector2Array()):
+			shape = lib.multiply_poolvector2array(shape, factor)
+
+	if 	(typeof(shape) == typeof([]) or
+		(typeof(shape) == typeof(PoolVector2Array()))):
+		
+		shape = lib.ConvexPolygonShape2D_from_list(shape)
+	
 	self.tile_set.create_tile(id)
 
 	self.tile_set.tile_set_texture(id, texture)
@@ -80,13 +95,18 @@ func add_new_tile(id, texture, shape, trans=Transform2D(0, Vector2(0, 0))):
 
 
 func load_new_tiles():
+
+	var i = 10
 	
-	add_new_tile(10, load("res://icon.png"), lib.ConvexPolygonShape2D_from_list([[0.0, 50.0], [0.0, 0.0], [50.0, 0.0], [50.0, 50.0]]))
+	add_new_tile(i+1, load("res://icon.png"), 						shapesdata['square'], 	50); i+=1
+	add_new_tile(i+1, load("res://tilesets/grass.png"), 			shapesdata['square'], 	50); i+=1
+	add_new_tile(i+1, load("res://tilesets/grass_slope_NE.png"), 	shapesdata['NEslope'], 	50); i+=1
+	add_new_tile(i+1, load("res://tilesets/grass_slope_SE.png"), 	shapesdata['SEslope'], 	50); i+=1
 	
 	
 func _ready():
-	# Called when the node is added to the scene for the first time.
-	# Initialization here
+	
+	shapesdata = Shapes.new().data
 	
 	print(block_list.blocks)
 	
@@ -94,7 +114,7 @@ func _ready():
 	
 	print(self.tile_set.get_tiles_ids())
 
-	show_cells(Vector2(5, 5))
+	show_cells(Vector2(0, -9))
 
 
 func _input(event):

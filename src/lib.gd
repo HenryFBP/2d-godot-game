@@ -53,3 +53,25 @@ static func ConvexPolygonShape2D_from_list(list):
 	shape.set_point_cloud(pv2)
 	
 	return shape
+
+# Multiply a list of things by a factor.
+# Creates a new list.
+static func multiply_listitems(things, factor):
+	
+	var newl = []
+	
+	for i in range(0, len(things)):
+		newl.append(things[i] * factor)
+		
+	return newl
+	
+# Multiply a PoolVector2Array by a factor.
+# Creates a new list.
+static func multiply_poolvector2array(pv2arr, factor):
+	
+	var newpv2arr = PoolVector2Array()
+	
+	for i in range(0, len(pv2arr)):
+		newpv2arr.append(pv2arr[i] * factor)
+	
+	return newpv2arr
