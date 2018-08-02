@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+# The player.
+
 const GRAVITY_VEC = Vector2(0, 900)
 const FLOOR_NORMAL = Vector2(0, -1)
 const SLOPE_SLIDE_STOP = 25.0
