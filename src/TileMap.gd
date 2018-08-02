@@ -92,16 +92,18 @@ func add_new_tile(id, texture, shape, factor=null, trans=Transform2D(0, Vector2(
 	self.tile_set.tile_set_texture(id, texture)
 	
 	self.tile_set.tile_add_shape(id, shape, trans)
+	
+	return id
 
 
 func load_new_tiles():
 
 	var i = 10
 	
-	add_new_tile(i+1, load("res://icon.png"), 						shapesdata['square'], 	50); i+=1
-	add_new_tile(i+1, load("res://tilesets/grass.png"), 			shapesdata['square'], 	50); i+=1
-	add_new_tile(i+1, load("res://tilesets/grass_slope_NE.png"), 	shapesdata['NEslope'], 	50); i+=1
-	add_new_tile(i+1, load("res://tilesets/grass_slope_SE.png"), 	shapesdata['SEslope'], 	50); i+=1
+	i = add_new_tile(i, load("res://icon.png"), 						shapesdata['square'], 	50) + 1
+	i = add_new_tile(i, load("res://tilesets/grass.png"), 			shapesdata['square'], 	50) + 1
+	i = add_new_tile(i, load("res://tilesets/grass_slope_NE.png"), 	shapesdata['NEslope'], 	50) + 1
+	i = add_new_tile(i, load("res://tilesets/grass_slope_SE.png"), 	shapesdata['SEslope'], 	50) + 1
 	
 	
 func _ready():
