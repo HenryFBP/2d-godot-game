@@ -75,3 +75,25 @@ static func multiply_poolvector2array(pv2arr, factor):
 		newpv2arr.append(pv2arr[i] * factor)
 	
 	return newpv2arr
+
+static func rotate_image(image):
+	var i = ImageTexture()
+	
+	if typeof(image) == typeof(StreamTexture()):
+		var data = image.get_data()
+		
+		# TODO actually rotat-o the data-to here...
+		
+		i.create_from_image(data)
+	
+	return i
+
+static func nidx(i, size):
+	
+	if(i < 0):
+		return nidx(i + size, size)
+	
+	if(i >= size):
+		return i % size
+	
+	return i

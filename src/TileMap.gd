@@ -7,11 +7,16 @@ const blocks = 	preload("res://tilesets/blocks.gd")
 const Shapes = preload("res://tilesets/shapes.gd")
 var shapesdata
 
-
 onready var block_list = blocks.new()
 onready var player = get_tree().get_root().get_node('Root/Player')
 
 const reach = 250.0
+
+# What index of `get_tiles_ids()` do we have selected?
+var selected_block_idx = 0
+
+# The Grid's Vector2 Coordinate.
+var selected_cell = null
 
 # Get the ID of a random cell.
 func get_random_cell_id():
@@ -41,7 +46,7 @@ func show_cells(pos=Vector2(0, 0), width=4):
 
 		x += 1
 
-		if x >= width:
+		if x >= width: # We're too far right!
 			x = 0
 			y += 1
 
@@ -100,10 +105,13 @@ func load_new_tiles():
 
 	var i = 10
 	
-	i = add_new_tile(i, load("res://icon.png"), 						shapesdata['square'], 	50) + 1
+	var grassslope = load("res://tilesets/grass_slope_NE.png")
+	
+	i = add_new_tile(i, load("res://icon.png"), 					shapesdata['square'],	50) + 1
 	i = add_new_tile(i, load("res://tilesets/grass.png"), 			shapesdata['square'], 	50) + 1
-	i = add_new_tile(i, load("res://tilesets/grass_slope_NE.png"), 	shapesdata['NEslope'], 	50) + 1
-	i = add_new_tile(i, load("res://tilesets/grass_slope_SE.png"), 	shapesdata['SEslope'], 	50) + 1
+	i = add_new_tile(i, load("res://tilesets/grass_slope_NE.png"), 	shapesdata['slopeNE'], 	50) + 1
+	i = add_new_tile(i, load("res://tilesets/grass_slope_SE.png"), 	shapesdata['slopeSE'], 	50) + 1
+	i = add_new_tile(i, load("res://tilesets/spikeN.png"),			shapesdata['spikeN'], 	50) + 1
 	
 	
 func _ready():
@@ -125,7 +133,20 @@ func _input(event):
 		debug_click_circle()
 	
 	if event is InputEventMouseMotion:
-		pass
+		
+		var selectedcell = self.world_to_map(get_global_mouse_position())
+	
+	if event.is_action_pressed('scroll_up'):
+
+		# Increase block index by one.
+		selected_block_idx = lib.nidx(selected_block_idx + 1, self.tile_set.get_tiles_ids().size())
+		print("block idx "+str(selected_block_idx)+" selected")
+		
+	if event.is_action_pressed('scroll_down'):
+		
+		# Decrease block index by one.
+		selected_block_idx = lib.nidx(selected_block_idx - 1, self.tile_set.get_tiles_ids().size())
+		print("block idx "+str(selected_block_idx)+" selected")
 
 
 func _process(delta):
