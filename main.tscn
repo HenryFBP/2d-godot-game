@@ -109,4 +109,6 @@ _sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 
 script = ExtResource( 9 )
 
+[node name="Sprite" type="Sprite" parent="TileMap/BlockPlacementGhost" index="0"]
+
 

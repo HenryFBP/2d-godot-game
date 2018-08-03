@@ -15,11 +15,8 @@ const reach = 250.0
 # What index of `get_tiles_ids()` do we have selected?
 var selected_block_idx = 0
 
-# Where the mouse is.
-var mouse_location = Vector2(0, 0)
-
-# The Grid's Vector2 Coordinate where the mouse is.
-var mouse_grid_location = Vector2(0, 0)
+func mouse_grid_location():
+	return world_to_map(get_global_mouse_position())
 
 # Get the ID of a random cell.
 func get_random_cell_id():
@@ -55,22 +52,21 @@ func show_cells(pos=Vector2(0, 0), width=4):
 
 func debug_click_circle():
 	
-	self.get_node("DebugNode2D/ClickCircle").set_draw_circle_arc(self.mouse_location, 30, 0, 360,
+	self.get_node("DebugNode2D/ClickCircle").set_draw_circle_arc(get_global_mouse_position(), 30, 0, 360,
 		Color(rand_range(0.0, 1.0), rand_range(0.0, 1.0), rand_range(0.0, 1.0)))
 
 func debug_break_distance():
 	var bd = self.get_node("DebugNode2D/BreakDistance")
 	
-	var ploc = player.position
-	var dist = self.mouse_location.distance_to(ploc)
+	var dist = get_global_mouse_position().distance_to(player.position)
 	
 	if dist <= reach:
 		bd.color = Color("#00FF00")
 	else:
 		bd.color = Color("#FF0000")
 
-	bd.start = ploc
-	bd.end = self.mouse_location
+	bd.start = player.position
+	bd.end = get_global_mouse_position()
 
 func add_new_tile(id, texture, shape, factor=null, trans=Transform2D(0, Vector2(0, 0))):
 	
@@ -127,14 +123,12 @@ func _ready():
 func _input(event):
 	
 	if event is InputEventMouseMotion:
-		self.mouse_location = get_global_mouse_position()
-		self.mouse_grid_location = self.world_to_map(self.mouse_location)
-	
+		pass
 	
 	if event.is_action_pressed('left_mouse'):
 		debug_click_circle()
 		
-		self.set_cell(self.mouse_grid_location.x, self.mouse_grid_location.y,
+		self.set_cell(mouse_grid_location().x, mouse_grid_location().y,
 			self.tile_set.get_tiles_ids()[selected_block_idx])		
 		
 	if event.is_action_pressed('scroll_up'):
