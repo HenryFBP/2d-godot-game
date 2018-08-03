@@ -2,6 +2,11 @@ extends Node2D
 
 # Shows what block would be placed if you were to left-click in build mode.
 
+var tileset = null
+
+func _init(tileset):
+	self.tileset = tileset
+	
 func _ready():
 	# Called when the node is added to the scene for the first time.
 	# Initialization here

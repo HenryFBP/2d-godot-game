@@ -15,8 +15,11 @@ const reach = 250.0
 # What index of `get_tiles_ids()` do we have selected?
 var selected_block_idx = 0
 
-# The Grid's Vector2 Coordinate.
-var selected_cell = null
+# Where the mouse is.
+var mouse_location = Vector2(0, 0)
+
+# The Grid's Vector2 Coordinate where the mouse is.
+var mouse_grid_location = Vector2(0, 0)
 
 # Get the ID of a random cell.
 func get_random_cell_id():
@@ -52,19 +55,14 @@ func show_cells(pos=Vector2(0, 0), width=4):
 
 func debug_click_circle():
 	
-	var mloc = get_global_mouse_position()
-	
-	self.get_node("DebugNode2D/ClickCircle").set_draw_circle_arc(mloc, 30, 0, 360,
+	self.get_node("DebugNode2D/ClickCircle").set_draw_circle_arc(self.mouse_location, 30, 0, 360,
 		Color(rand_range(0.0, 1.0), rand_range(0.0, 1.0), rand_range(0.0, 1.0)))
 
 func debug_break_distance():
 	var bd = self.get_node("DebugNode2D/BreakDistance")
 	
-	var mloc = get_global_mouse_position()
-	var wloc = self.world_to_map(mloc)
-	
 	var ploc = player.position
-	var dist = mloc.distance_to(ploc)
+	var dist = self.mouse_location.distance_to(ploc)
 	
 	if dist <= reach:
 		bd.color = Color("#00FF00")
@@ -72,10 +70,11 @@ func debug_break_distance():
 		bd.color = Color("#FF0000")
 
 	bd.start = ploc
-	bd.end = mloc
+	bd.end = self.mouse_location
 
 func add_new_tile(id, texture, shape, factor=null, trans=Transform2D(0, Vector2(0, 0))):
 	
+	# If they want to, apply the factor.
 	if factor:
 
 		if typeof(shape) == typeof([]):
@@ -84,6 +83,7 @@ func add_new_tile(id, texture, shape, factor=null, trans=Transform2D(0, Vector2(
 		elif typeof(shape) == typeof(PoolVector2Array()):
 			shape = lib.multiply_poolvector2array(shape, factor)
 
+	# Turn that list into a shape!
 	if 	(typeof(shape) == typeof([]) or
 		(typeof(shape) == typeof(PoolVector2Array()))):
 		
@@ -126,17 +126,19 @@ func _ready():
 
 func _input(event):
 	
+	if event is InputEventMouseMotion:
+		self.mouse_location = get_global_mouse_position()
+		self.mouse_grid_location = self.world_to_map(self.mouse_location)
+	
+	
 	if event.is_action_pressed('left_mouse'):
 		debug_click_circle()
 		
-		var mloc = get_global_mouse_position()
-		var wloc = self.world_to_map(mloc)
+		self.set_cell(self.mouse_grid_location.x, self.mouse_grid_location.y,
+			self.tile_set.get_tiles_ids()[selected_block_idx])		
 		
-		self.set_cell(wloc.x, wloc.y, self.tile_set.get_tiles_ids()[selected_block_idx])		
-		
-	if event is InputEventMouseMotion:
-		
-		var selectedcell = self.world_to_map(get_global_mouse_position())
+
+
 	
 	if event.is_action_pressed('scroll_up'):
 
