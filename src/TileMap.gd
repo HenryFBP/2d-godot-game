@@ -137,20 +137,15 @@ func _input(event):
 		self.set_cell(self.mouse_grid_location.x, self.mouse_grid_location.y,
 			self.tile_set.get_tiles_ids()[selected_block_idx])		
 		
-
-
-	
 	if event.is_action_pressed('scroll_up'):
 
 		# Increase block index by one.
 		selected_block_idx = lib.nidx(selected_block_idx + 1, self.tile_set.get_tiles_ids().size())
-		print("block idx "+str(selected_block_idx)+" selected")
 		
 	if event.is_action_pressed('scroll_down'):
 		
 		# Decrease block index by one.
 		selected_block_idx = lib.nidx(selected_block_idx - 1, self.tile_set.get_tiles_ids().size())
-		print("block idx "+str(selected_block_idx)+" selected")
 
 
 func _process(delta):

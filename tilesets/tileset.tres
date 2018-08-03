@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=7 format=2]
+[gd_resource type="TileSet" load_steps=6 format=2]
 
 [ext_resource path="res://tilesets/tileset.png" type="Texture" id=1]
 
@@ -21,14 +21,6 @@ points = PoolVector2Array( 0, 50, 50, 0, 50, 50 )
 
 custom_solver_bias = 0.0
 points = PoolVector2Array( 0, 50, 0, 0, 50, 50 )
-
-[sub_resource type="ImageTexture" id=1]
-
-flags = 7
-storage = 0
-lossy_quality = 0.7
-flags = 7
-size = Vector2( 0, 0 )
 
 [resource]
 
@@ -98,7 +90,6 @@ size = Vector2( 0, 0 )
 4/navigation_offset = Vector2( 0, 0 )
 4/shapes = [  ]
 5/name = "Air"
-5/texture = SubResource( 1 )
 5/tex_offset = Vector2( 0, 0 )
 5/modulate = Color( 1, 1, 1, 1 )
 5/region = Rect2( 0, 0, 50, 50 )
@@ -106,4 +97,5 @@ size = Vector2( 0, 0 )
 5/occluder_offset = Vector2( 0, 0 )
 5/navigation_offset = Vector2( 0, 0 )
 5/shapes = [  ]
+_sections_unfolded = [ "5" ]
 

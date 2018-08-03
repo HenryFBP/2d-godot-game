@@ -3,6 +3,7 @@ extends Node2D
 # Shows what block would be placed if you were to left-click in build mode.
 
 var tileset = null
+var tile = null
 
 func _init(tileset):
 	self.tileset = tileset
