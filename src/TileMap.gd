@@ -15,6 +15,9 @@ const reach = 250.0
 # What index of `get_tiles_ids()` do we have selected?
 var selected_block_idx = 0
 
+func current_tile():
+	return self.tile_set.get_tiles_ids()[selected_block_idx]
+
 func mouse_grid_location():
 	return world_to_map(get_global_mouse_position())
 
@@ -56,6 +59,7 @@ func debug_click_circle():
 		Color(rand_range(0.0, 1.0), rand_range(0.0, 1.0), rand_range(0.0, 1.0)))
 
 func debug_break_distance():
+	
 	var bd = self.get_node("DebugNode2D/BreakDistance")
 	
 	var dist = get_global_mouse_position().distance_to(player.position)
@@ -123,13 +127,15 @@ func _ready():
 func _input(event):
 	
 	if event is InputEventMouseMotion:
-		pass
+		
+		var bpgs = self.get_node("BlockPlacementGhost/Sprite")
+		bpgs.global_position = self.get_global_mouse_position()
+		
 	
 	if event.is_action_pressed('left_mouse'):
 		debug_click_circle()
 		
-		self.set_cell(mouse_grid_location().x, mouse_grid_location().y,
-			self.tile_set.get_tiles_ids()[selected_block_idx])		
+		self.set_cell(mouse_grid_location().x, mouse_grid_location().y, current_tile())
 		
 	if event.is_action_pressed('scroll_up'):
 
@@ -140,6 +146,14 @@ func _input(event):
 		
 		# Decrease block index by one.
 		selected_block_idx = lib.nidx(selected_block_idx - 1, self.tile_set.get_tiles_ids().size())
+	
+	if event.is_action_pressed('scroll_down') or\
+		event.is_action_pressed('scroll_up'):
+			
+			var bpg = self.get_node("BlockPlacementGhost")
+
+			# Set the ghost's texture to the current tile's texture.
+			bpg.set_texture(self.tile_set.tile_get_texture(current_tile())) 
 
 
 func _process(delta):

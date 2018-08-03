@@ -3,10 +3,12 @@ extends Node2D
 # Shows what block would be placed if you were to left-click in build mode.
 
 var tileset = null
-var tile = null
+var texture = null
 
-func _init(tileset):
-	self.tileset = tileset
+func set_texture(texture):
+	var s = self.get_node("Sprite")
+	
+	s.texture = texture
 	
 func _ready():
 	# Called when the node is added to the scene for the first time.
