@@ -24,9 +24,10 @@ static func PoolVector2Array_from_list(list):
 				elif typeof(item) == typeof([]):
 					pv.append(Vector2(item[0], item[1]))
 
-				# Everything else. Shouldn't happen.
+				# Everything else. Shouldn't happen, hence the assert false.
 				else:
-					pv.append(ERR_PARSE_ERROR)
+					print(">:(")
+					assert(false)
 			
 			return pv
 	
@@ -76,6 +77,7 @@ static func multiply_poolvector2array(pv2arr, factor):
 	
 	return newpv2arr
 
+# Take a guess.
 static func rotate_image(image):
 	var i = ImageTexture()
 	
@@ -88,6 +90,8 @@ static func rotate_image(image):
 	
 	return i
 
+# Given an index and a max size, normalize the index so that it is between 0 - size.
+# Useful for arrays who restrict you to index within [0:size].
 static func nidx(i, size):
 	
 	if(i < 0):

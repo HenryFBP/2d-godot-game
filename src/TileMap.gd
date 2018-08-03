@@ -53,12 +53,9 @@ func show_cells(pos=Vector2(0, 0), width=4):
 func debug_click_circle():
 	
 	var mloc = get_global_mouse_position()
-	var wloc = self.world_to_map(mloc)
 	
 	self.get_node("DebugNode2D/ClickCircle").set_draw_circle_arc(mloc, 30, 0, 360,
 		Color(rand_range(0.0, 1.0), rand_range(0.0, 1.0), rand_range(0.0, 1.0)))
-	
-	randomize_cell(wloc)
 
 func debug_break_distance():
 	var bd = self.get_node("DebugNode2D/BreakDistance")
@@ -131,7 +128,12 @@ func _input(event):
 	
 	if event.is_action_pressed('left_mouse'):
 		debug_click_circle()
-	
+		
+		var mloc = get_global_mouse_position()
+		var wloc = self.world_to_map(mloc)
+		
+		self.set_cell(wloc.x, wloc.y, self.tile_set.get_tiles_ids()[selected_block_idx])		
+		
 	if event is InputEventMouseMotion:
 		
 		var selectedcell = self.world_to_map(get_global_mouse_position())
