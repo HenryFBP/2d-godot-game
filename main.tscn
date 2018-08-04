@@ -114,6 +114,7 @@ script = ExtResource( 9 )
 
 modulate = Color( 1, 1, 1, 0.498039 )
 texture = ExtResource( 10 )
+region_enabled = true
 _sections_unfolded = [ "Region", "Visibility" ]
 
 

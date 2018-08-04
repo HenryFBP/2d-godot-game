@@ -2,23 +2,23 @@ extends Node2D
 
 # Shows what block would be placed if you were to left-click in build mode.
 
-var tileset = null
-var texture = null
-
-func set_texture(texture, rect):
+func set_texture(texture, rect=null):
 	
 	var s = self.get_node("Sprite")
 	
 	print(rect)
 	
-	if rect != Rect2(0, 0, 0, 0):
-		
-		#we must slice!
-		print("SLICE")
-		
-		pass
-	
 	s.texture = texture
+	
+	if rect:
+		
+		#we must hide the area we don't want!
+		s.region_enabled = true
+		s.region_rect = rect
+	else:
+		
+		s.region_enabled = false
+
 	
 	
 func _ready():
