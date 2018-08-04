@@ -77,8 +77,16 @@ func debug_break_distance():
 func show_block_ghost():
 	
 	var mpg = self.get_global_mouse_position()
+	var cx = int(self.cell_size.x)
+	var cy = int(self.cell_size.y)
 	
-	block_ghost.global_position = mpg.snapped(self.cell_size)
+	# This snaps it to the grid.
+	mpg.x = mpg.x - (int(mpg.x) % cx) + (sign(mpg.x) * (cx / 2))
+	mpg.y = mpg.y - (int(mpg.y) % cy) + (sign(mpg.y) * (cy / 2))
+	
+	block_ghost.global_position = mpg
+
+	
 
 func add_new_tile(id, texture, shape, factor=null, trans=Transform2D(0, Vector2(0, 0))):
 	
