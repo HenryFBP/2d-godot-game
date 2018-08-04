@@ -153,7 +153,8 @@ func _input(event):
 			var bpg = self.get_node("BlockPlacementGhost")
 
 			# Set the ghost's texture to the current tile's texture.
-			bpg.set_texture(self.tile_set.tile_get_texture(current_tile())) 
+			bpg.set_texture(self.tile_set.tile_get_texture(current_tile()),
+				self.tile_set.tile_get_region(current_tile())) 
 
 
 func _process(delta):

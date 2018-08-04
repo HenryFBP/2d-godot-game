@@ -5,10 +5,21 @@ extends Node2D
 var tileset = null
 var texture = null
 
-func set_texture(texture):
+func set_texture(texture, rect):
+	
 	var s = self.get_node("Sprite")
 	
+	print(rect)
+	
+	if rect != Rect2(0, 0, 0, 0):
+		
+		#we must slice!
+		print("SLICE")
+		
+		pass
+	
 	s.texture = texture
+	
 	
 func _ready():
 	# Called when the node is added to the scene for the first time.
