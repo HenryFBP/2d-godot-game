@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://src/player.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
@@ -9,7 +9,6 @@
 [ext_resource path="res://src/ClickCircle.gd" type="Script" id=7]
 [ext_resource path="res://src/BreakDistance.gd" type="Script" id=8]
 [ext_resource path="res://src/BlockPlacementGhost.gd" type="Script" id=9]
-[ext_resource path="res://tilesets/grass.png" type="Texture" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -113,8 +112,6 @@ script = ExtResource( 9 )
 [node name="Sprite" type="Sprite" parent="TileMap/BlockPlacementGhost" index="0"]
 
 modulate = Color( 1, 1, 1, 0.498039 )
-texture = ExtResource( 10 )
-region_enabled = true
 _sections_unfolded = [ "Region", "Visibility" ]
 
 

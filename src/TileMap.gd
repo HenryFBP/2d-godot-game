@@ -8,7 +8,9 @@ const Shapes = preload("res://tilesets/shapes.gd")
 var shapesdata
 
 onready var block_list = blocks.new()
+
 onready var player = get_tree().get_root().get_node('Root/Player')
+onready var block_ghost = self.get_node("BlockPlacementGhost")
 
 const reach = 250.0
 
@@ -72,6 +74,18 @@ func debug_break_distance():
 	bd.start = player.position
 	bd.end = get_global_mouse_position()
 
+func show_block_ghost():
+	
+	var mpg = self.get_global_mouse_position()
+	var cx = int(self.cell_size.x)
+	var cy = int(self.cell_size.y)
+	
+	# This snaps it to the grid.
+	mpg.x = mpg.x - (int(mpg.x) % cx) + (cx / 2)
+	mpg.y = mpg.y - (int(mpg.y) % cy) - (cy / 2)
+	
+	block_ghost.global_position = mpg
+
 func add_new_tile(id, texture, shape, factor=null, trans=Transform2D(0, Vector2(0, 0))):
 	
 	# If they want to, apply the factor.
@@ -127,10 +141,7 @@ func _ready():
 func _input(event):
 	
 	if event is InputEventMouseMotion:
-		
-		var bpgs = self.get_node("BlockPlacementGhost/Sprite")
-		bpgs.global_position = self.get_global_mouse_position()
-		
+		pass
 	
 	if event.is_action_pressed('left_mouse'):
 		debug_click_circle()
@@ -150,12 +161,13 @@ func _input(event):
 	if event.is_action_pressed('scroll_down') or\
 		event.is_action_pressed('scroll_up'):
 			
-			var bpg = self.get_node("BlockPlacementGhost")
-
 			# Set the ghost's texture to the current tile's texture.
-			bpg.set_texture(self.tile_set.tile_get_texture(current_tile()),
+			block_ghost.set_texture(self.tile_set.tile_get_texture(current_tile()),
 				self.tile_set.tile_get_region(current_tile())) 
 
 
 func _process(delta):
+	
 	debug_break_distance()
+	
+	show_block_ghost()
