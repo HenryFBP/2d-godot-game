@@ -126,7 +126,24 @@ func load_new_tiles():
 	i = add_new_tile(i, load("res://tilesets/grass_slope_SE.png"), 	shapesdata['slopeSE'], 	50) + 1
 	i = add_new_tile(i, load("res://tilesets/spikeN.png"),			shapesdata['spikeN'], 	50) + 1
 	
+
+# Pants a region with one ID block.
+func paint_region(id, start=Vector2(0,0), end=Vector2(5,5)):
 	
+	var xf = 1
+	var yf = 1
+	
+	# To loop backwards.
+	if(start.x > end.x): 
+		xf = -xf
+	
+	if(start.y > end.y):
+		yf = -yf
+		
+	for x in range(start.x, end.x, xf):
+		for y in range(start.y, end.y, yf):
+			self.set_cell(x, y, id)
+
 func _ready():
 	
 	shapesdata = Shapes.new().data
@@ -138,6 +155,8 @@ func _ready():
 	print(self.tile_set.get_tiles_ids())
 
 	show_cells(Vector2(0, -9))
+	
+	paint_region(3, Vector2(5,5), Vector2(0,0))
 
 
 func _input(event):
@@ -166,7 +185,6 @@ func _input(event):
 			# Set the ghost's texture to the current tile's texture.
 			block_ghost.set_texture(self.tile_set.tile_get_texture(current_tile()),
 				self.tile_set.tile_get_region(current_tile())) 
-
 
 func _process(delta):
 	
