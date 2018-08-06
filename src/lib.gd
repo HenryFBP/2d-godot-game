@@ -44,7 +44,7 @@ static func range_always(start, stop):
 
 	var ret = range(start, stop, f)
 	
-	print(start,' -> ',stop,'=',ret)
+	#print(start,' -> ',stop,'=',ret)
 	
 	return ret
 

@@ -167,7 +167,7 @@ func paint_hollow_rect(id, start, end):
 				if(c1.y == c2.y):
 					c1.y += 1
 				
-				print("Painting a region from ",c1," to ",c2,".")
+				#print("Painting a region from ",c1," to ",c2,".")
 				
 				paint_region(id, c1, c2)
 
