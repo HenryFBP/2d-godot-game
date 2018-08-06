@@ -3,13 +3,15 @@ extends TileMap
 # The world.
 
 const lib = 	preload("res://src/lib.gd")
-const blocks = 	preload("res://tilesets/blocks.gd")
-const Shapes = preload("res://tilesets/shapes.gd")
+const blocks =	preload("res://tilesets/blocks.gd")
+const Shapes =	preload("res://tilesets/shapes.gd")
 var shapesdata
 
 onready var block_list = blocks.new()
 
-onready var player = get_tree().get_root().get_node('Root/Player')
+onready var player = 	get_tree().get_root().get_node('Root/Player')
+onready var playerspr = get_tree().get_root().get_node('Root/Player/Sprite')
+
 onready var block_ghost = self.get_node("BlockPlacementGhost")
 
 const reach = 250.0
@@ -17,11 +19,19 @@ const reach = 250.0
 # What index of `get_tiles_ids()` do we have selected?
 var selected_block_idx = 0
 
+# The tile the player will place down.
 func current_tile():
 	return self.tile_set.get_tiles_ids()[selected_block_idx]
 
 func mouse_grid_location():
 	return world_to_map(get_global_mouse_position())
+
+# The tile under the player's cursor.
+func tile_under_cursor():
+	
+	var p = mouse_grid_location()
+	
+	return self.get_cell(p.x, p.y)
 
 # Get the ID of a random cell.
 func get_random_cell_id():
@@ -188,6 +198,11 @@ func _ready():
 	paint_circle(11, Vector2(-10, 3), 8)
 	
 	paint_hollow_rect(4, Vector2(-10, 10), Vector2(-5, 5))
+	
+	# Give 'em some blocks to build with.
+	for id in self.tile_set.get_tiles_ids():
+		playerspr
+		
 
 
 func _input(event):
@@ -195,10 +210,21 @@ func _input(event):
 	if event is InputEventMouseMotion:
 		pass
 	
-	if event.is_action_pressed('left_mouse'):
-		debug_click_circle()
-		
+	# Right-click places a block.
+	if event.is_action_pressed('right_mouse'):
+
 		self.set_cell(mouse_grid_location().x, mouse_grid_location().y, current_tile())
+
+	
+	# Left-click breaks a block.
+	if event.is_action_pressed('left_mouse'):
+		
+		var id = tile_under_cursor()
+		
+		self.playerspr.add_item(id)
+		
+		print(self.playerspr.inventory)
+
 		
 	if event.is_action_pressed('scroll_up'):
 

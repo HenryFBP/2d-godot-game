@@ -6,7 +6,7 @@ func set_texture(texture, rect=null):
 	
 	var s = self.get_node("Sprite")
 	
-	print(rect)
+	#print(rect)
 	
 	s.texture = texture
 	
