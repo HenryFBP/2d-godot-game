@@ -144,6 +144,21 @@ func paint_region(id, start=Vector2(0,0), end=Vector2(5,5)):
 		for y in range(start.y, end.y, yf):
 			self.set_cell(x, y, id)
 
+func paint_circle(id, center, radius):
+
+	# Lower and upper bounds.
+	var lb = Vector2(-radius, -radius) + center
+	var ub = Vector2(radius, radius) + center
+	
+	for x in range(lb.x, ub.x):
+		for y in range(lb.y, ub.y):
+
+			var p = Vector2(x, y)
+			
+			
+			if abs(center.distance_to(p)) <= radius:
+				self.set_cell(x, y, id)
+
 func _ready():
 	
 	shapesdata = Shapes.new().data
@@ -156,7 +171,9 @@ func _ready():
 
 	show_cells(Vector2(0, -9))
 	
-	paint_region(3, Vector2(5,5), Vector2(0,0))
+	paint_region(11, Vector2(3,3), Vector2(-1,-1))
+	
+	paint_circle(11, Vector2(-10, 3), 7)
 
 
 func _input(event):
