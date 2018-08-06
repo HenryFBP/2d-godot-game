@@ -97,4 +97,5 @@ points = PoolVector2Array( 0, 50, 0, 0, 50, 50 )
 5/occluder_offset = Vector2( 0, 0 )
 5/navigation_offset = Vector2( 0, 0 )
 5/shapes = [  ]
+_sections_unfolded = [ "Resource" ]
 

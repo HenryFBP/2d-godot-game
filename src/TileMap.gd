@@ -96,6 +96,41 @@ func show_block_ghost():
 	
 	block_ghost.global_position = mpg
 
+func place_block():
+	
+	var problems = []
+	var tile_under = tile_under_cursor()
+	
+	# They can afford to place the block
+	# and it's air.
+	if playerspr.has_item(current_tile()) and\
+		tile_under == -1:
+		
+		# Place it!
+		self.set_cell(mouse_grid_location().x, mouse_grid_location().y, current_tile())
+
+		# Remove ONE from their inventory.
+		
+		playerspr.remove_item(current_tile())
+	else:
+		if not playerspr.has_item(current_tile()):
+			problems.append("You're out of that block!")
+		
+		if tile_under != -1:
+			problems.append(str("That tile's occupied with '",tile_under,"'!"))
+	
+	for problem in problems:
+		print(problem)
+
+func break_block():
+	var id = tile_under_cursor()
+	
+	# Add da block!
+	playerspr.add_item(id)
+	
+	# Delete 'gotten' block.
+	self.set_cell(mouse_grid_location().x, mouse_grid_location().y, -1)
+
 	
 
 func add_new_tile(id, texture, shape, factor=null, trans=Transform2D(0, Vector2(0, 0))):
@@ -217,28 +252,13 @@ func _input(event):
 	# Right-click places a block.
 	if event.is_action_pressed('right_mouse'):
 
-		# If they can afford to place the block, then...
-		if playerspr.has_item(current_tile()):
-			
-			# Place it!
-			self.set_cell(mouse_grid_location().x, mouse_grid_location().y, current_tile())
-
-			# Remove ONE from their inventory.
-			playerspr.remove_item(current_tile())
-		else:
-			print("You're out of that block!")
+		place_block()
 
 	
 	# Left-click breaks a block.
 	if event.is_action_pressed('left_mouse'):
-		
-		var id = tile_under_cursor()
-		
-		# Add da block!
-		playerspr.add_item(id)
-		
-		# Delete 'gotten' block.
-		self.set_cell(mouse_grid_location().x, mouse_grid_location().y, -1)
+	
+		break_block()
 		
 		
 	if event.is_action_pressed('scroll_up'):

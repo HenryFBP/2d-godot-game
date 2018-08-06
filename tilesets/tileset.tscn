@@ -6,21 +6,9 @@
 
 _sections_unfolded = [ "Transform" ]
 
-[node name="Air" type="Sprite" parent="." index="0"]
-
-scale = Vector2( 50, 50 )
-centered = false
-region_enabled = true
-region_rect = Rect2( 0, 0, 50, 50 )
-_sections_unfolded = [ "Material", "Offset", "Transform", "Visibility" ]
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="Wall" type="Sprite" parent="." index="1"]
+[node name="Wall" type="Sprite" parent="." index="0"]
 
 editor/display_folded = true
-position = Vector2( 50, 0 )
 texture = ExtResource( 1 )
 centered = false
 region_enabled = true
@@ -47,10 +35,10 @@ build_mode = 0
 polygon = PoolVector2Array( 50, 50, 50, 0, 0, 0, 0, 50 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="WallGround" type="Sprite" parent="." index="2"]
+[node name="WallGround" type="Sprite" parent="." index="1"]
 
 editor/display_folded = true
-position = Vector2( 100, 0 )
+position = Vector2( 50, 0 )
 texture = ExtResource( 1 )
 centered = false
 region_enabled = true
@@ -77,10 +65,10 @@ build_mode = 0
 polygon = PoolVector2Array( 50, 50, 50, 0, 0, 0, 0, 50 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="WallAngleLeft" type="Sprite" parent="." index="3"]
+[node name="WallAngleLeft" type="Sprite" parent="." index="2"]
 
 editor/display_folded = true
-position = Vector2( 150, 0 )
+position = Vector2( 100, 0 )
 texture = ExtResource( 1 )
 centered = false
 region_enabled = true
@@ -106,10 +94,10 @@ _sections_unfolded = [ "Transform" ]
 build_mode = 0
 polygon = PoolVector2Array( 50, 50, 50, 0, 0, 50 )
 
-[node name="WallAngleRight" type="Sprite" parent="." index="4"]
+[node name="WallAngleRight" type="Sprite" parent="." index="3"]
 
 editor/display_folded = true
-position = Vector2( 200, 0 )
+position = Vector2( 150, 0 )
 texture = ExtResource( 1 )
 centered = false
 region_enabled = true
@@ -136,10 +124,10 @@ build_mode = 0
 polygon = PoolVector2Array( 50, 50, 0, 0, 0, 50 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="WallDark" type="Sprite" parent="." index="5"]
+[node name="WallDark" type="Sprite" parent="." index="4"]
 
 editor/display_folded = true
-position = Vector2( 250, 0 )
+position = Vector2( 200, 0 )
 texture = ExtResource( 1 )
 centered = false
 region_enabled = true
