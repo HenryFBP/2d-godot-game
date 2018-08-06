@@ -125,25 +125,17 @@ func load_new_tiles():
 	i = add_new_tile(i, load("res://tilesets/grass_slope_NE.png"), 	shapesdata['slopeNE'], 	50) + 1
 	i = add_new_tile(i, load("res://tilesets/grass_slope_SE.png"), 	shapesdata['slopeSE'], 	50) + 1
 	i = add_new_tile(i, load("res://tilesets/spikeN.png"),			shapesdata['spikeN'], 	50) + 1
+	i = add_new_tile(i, load("res://tilesets/spikeN.png"),			shapesdata['spikeS'], 	50) + 1
 	
 
 # Pants a region with one ID block.
 func paint_region(id, start=Vector2(0,0), end=Vector2(5,5)):
 	
-	var xf = 1
-	var yf = 1
-	
-	# To loop backwards.
-	if(start.x > end.x): 
-		xf = -xf
-	
-	if(start.y > end.y):
-		yf = -yf
-		
-	for x in range(start.x, end.x, xf):
-		for y in range(start.y, end.y, yf):
+	for x in lib.range_always(start.x, end.x):
+		for y in lib.range_always(start.y, end.y):
 			self.set_cell(x, y, id)
 
+# Paint a circle with a block.
 func paint_circle(id, center, radius):
 
 	# Lower and upper bounds.
@@ -155,9 +147,29 @@ func paint_circle(id, center, radius):
 
 			var p = Vector2(x, y)
 			
-			
 			if abs(center.distance_to(p)) <= radius:
 				self.set_cell(x, y, id)
+
+# Paint a hollow rectangle.
+func paint_hollow_rect(id, start, end):
+	
+	var corners = lib.vector2_corners(start, end)
+	
+	for c1 in corners:
+		for c2 in corners:
+
+			# If the two vectors share one coordinate where order matters.
+			if lib.vector2_pos_similarities(c1, c2) == 1:
+				
+				if(c1.x == c2.x):
+					c1.x += 1
+
+				if(c1.y == c2.y):
+					c1.y += 1
+				
+				print("Painting a region from ",c1," to ",c2,".")
+				
+				paint_region(id, c1, c2)
 
 func _ready():
 	
@@ -173,7 +185,9 @@ func _ready():
 	
 	paint_region(11, Vector2(3,3), Vector2(-1,-1))
 	
-	paint_circle(11, Vector2(-10, 3), 7)
+	paint_circle(11, Vector2(-10, 3), 8)
+	
+	paint_hollow_rect(4, Vector2(-10, 10), Vector2(-5, 5))
 
 
 func _input(event):

@@ -1,4 +1,53 @@
 
+# Given two points,
+# return the four points that are
+# formed by a rectangle around them.
+# Example:
+#
+# foo( [0,0], [3,3] ) ->
+# [ [0,0], [0,3], [3,0], [3,3] ]
+#
+#
+static func vector2_corners(v1, v2):
+	return [
+		Vector2(v1.x, v2.x),
+		Vector2(v1.x, v2.y),
+		Vector2(v1.y, v2.x),
+		Vector2(v1.y, v2.y),
+	]
+
+
+# Given two points, how many coordinates are similar?
+# Order matters.
+# Examples:
+# foo( [1,2], [2,2] ) -> 1
+# foo( [0,1], [1,0] ) -> 0
+# foo( [3,3], [3,3] ) -> 2
+#
+static func vector2_pos_similarities(v1, v2):
+	var ret = 0
+	
+	if v1.x == v2.x:
+		ret += 1
+	
+	if v1.y == v2.y:
+		ret += 1
+	
+	return ret
+
+static func range_always(start, stop):
+	
+	var f = 1
+
+	if start > stop:
+		f = -f
+
+	var ret = range(start, stop, f)
+	
+	print(start,' -> ',stop,'=',ret)
+	
+	return ret
+
 static func random_item(list):
 	return list[floor(rand_range(0, len(list)))]
 
