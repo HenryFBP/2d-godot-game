@@ -190,18 +190,22 @@ func _ready():
 	load_new_tiles()
 	
 	print(self.tile_set.get_tiles_ids())
-
+	
+	# Display all current block IDs!
 	show_cells(Vector2(0, -9))
 	
+	# Make a rectangle!
 	paint_region(11, Vector2(3,3), Vector2(-1,-1))
 	
+	# Make a circle!
 	paint_circle(11, Vector2(-10, 3), 8)
 	
+	# Make a hollow rectangle!
 	paint_hollow_rect(4, Vector2(-10, 10), Vector2(-5, 5))
 	
 	# Give 'em some blocks to build with.
 	for id in self.tile_set.get_tiles_ids():
-		playerspr
+		self.playerspr.add_item(id, null, 10)
 		
 
 
@@ -213,7 +217,16 @@ func _input(event):
 	# Right-click places a block.
 	if event.is_action_pressed('right_mouse'):
 
-		self.set_cell(mouse_grid_location().x, mouse_grid_location().y, current_tile())
+		# If they can afford to place the block, then...
+		if playerspr.has_item(current_tile()):
+			
+			# Place it!
+			self.set_cell(mouse_grid_location().x, mouse_grid_location().y, current_tile())
+
+			# Remove ONE from their inventory.
+			playerspr.remove_item(current_tile())
+		else:
+			print("You're out of that block!")
 
 	
 	# Left-click breaks a block.
@@ -221,10 +234,12 @@ func _input(event):
 		
 		var id = tile_under_cursor()
 		
-		self.playerspr.add_item(id)
+		# Add da block!
+		playerspr.add_item(id)
 		
-		print(self.playerspr.inventory)
-
+		# Delete 'gotten' block.
+		self.set_cell(mouse_grid_location().x, mouse_grid_location().y, -1)
+		
 		
 	if event.is_action_pressed('scroll_up'):
 

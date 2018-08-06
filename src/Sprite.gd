@@ -1,7 +1,7 @@
 extends Sprite
 
-onready var gui = get_tree().get_root().get_node('Root/Player/Camera2D/GUI')
-onready var label = gui.get_node('Control/HBoxContainer/Panel/Label')
+onready var gui = get_tree().get_root().get_node("Root/Player/Camera2D/GUI")
+onready var label = gui.get_node("Control/HBoxContainer/PanelContainer/Label")
 
 
 # class member variables go here, for example:
@@ -21,7 +21,7 @@ func _ready():
 	pass
 
 # Add an item to the player's inventory.
-func add_item(id, metadata=null):
+func add_item(id, metadata=null, amount=1):
 
 	var obj = id
 	
@@ -31,7 +31,7 @@ func add_item(id, metadata=null):
 	if not obj in inventory:
 		inventory[obj] = 0
 	
-	inventory[obj] += 1
+	inventory[obj] += amount
 	
 	update_gui()
 
@@ -56,7 +56,12 @@ func item_amount(item):
 		return 0
 		
 func update_gui():
-	label.text = str(self.inventory)
+	var s = str(self.inventory)
+
+	if not s:
+		s = "{}"
+
+	label.text = s
 
 #func _process(delta):
 #	# Called every frame. Delta is time since last frame.
