@@ -131,6 +131,15 @@ func break_block():
 	# Delete 'gotten' block.
 	self.set_cell(mouse_grid_location().x, mouse_grid_location().y, -1)
 
+# Someone wants to select a different block to place down.
+func scroll_block(direction=1):
+	
+	selected_block_idx = lib.nidx(selected_block_idx + direction, self.tile_set.get_tiles_ids().size())
+
+
+	# Set the ghost's texture to the current tile's texture.
+	block_ghost.set_texture(self.tile_set.tile_get_texture(current_tile()),
+		self.tile_set.tile_get_region(current_tile())) 
 	
 
 func add_new_tile(id, texture, shape, factor=null, trans=Transform2D(0, Vector2(0, 0))):
@@ -253,30 +262,21 @@ func _input(event):
 	if event.is_action_pressed('right_mouse'):
 
 		place_block()
-
 	
 	# Left-click breaks a block.
 	if event.is_action_pressed('left_mouse'):
 	
 		break_block()
 		
-		
 	if event.is_action_pressed('scroll_up'):
 
 		# Increase block index by one.
-		selected_block_idx = lib.nidx(selected_block_idx + 1, self.tile_set.get_tiles_ids().size())
+		scroll_block(1)
 		
 	if event.is_action_pressed('scroll_down'):
 		
 		# Decrease block index by one.
-		selected_block_idx = lib.nidx(selected_block_idx - 1, self.tile_set.get_tiles_ids().size())
-	
-	if event.is_action_pressed('scroll_down') or\
-		event.is_action_pressed('scroll_up'):
-			
-			# Set the ghost's texture to the current tile's texture.
-			block_ghost.set_texture(self.tile_set.tile_get_texture(current_tile()),
-				self.tile_set.tile_get_region(current_tile())) 
+		scroll_block(-1)
 
 func _process(delta):
 	
