@@ -9,17 +9,19 @@ func _ready():
 
 func add_chat_message(message):
 	
-	var chatmsg = PanelContainer.new()
-	var l = Label.new()
+	var chatmsg = PanelContainer.new() #Make new panel for label.
+	var l = Label.new() # Make new label.
 	
-	l.text = message
+	l.text = message # Set text to message.
+		
+	chatmsg.add_child(l) # Add label to panel.
+	self.chatbox.add_child(chatmsg) # Add panel to chatbox.
 	
+	self.chatbox.full_opacity() # Make it fully visible.
 	
-	chatmsg.add_child(l)
-	self.chatbox.add_child(chatmsg)
+func _process(delta):
 	
-
-#func _process(delta):
-#	# Called every frame. Delta is time since last frame.
-#	# Update game logic here.
-#	pass
+	# Called every frame. Delta is time since last frame.
+	# Update game logic here.
+	
+	pass
