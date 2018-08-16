@@ -1,7 +1,7 @@
 extends Sprite
 
 onready var gui = get_tree().get_root().get_node("Root/Player/Camera2D/GUI")
-onready var label = gui.get_node("Control/HBoxContainer/PanelContainer/Label")
+onready var label = gui.get_node("Control/VSplitContainer/HBoxContainerInventory/PanelContainer/Label")
 
 
 # class member variables go here, for example:

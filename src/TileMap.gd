@@ -11,8 +11,11 @@ onready var block_list = blocks.new()
 
 onready var player = 	get_tree().get_root().get_node('Root/Player')
 onready var playerspr = get_tree().get_root().get_node('Root/Player/Sprite')
+onready var gui =		get_tree().get_root().get_node("Root/Player/Camera2D/GUI")
 
-onready var block_ghost = self.get_node("BlockPlacementGhost")
+
+onready var block_ghost = 	self.get_node("BlockPlacementGhost")
+onready var dbclickcircle = self.get_node("DebugNode2D/ClickCircle")
 
 const reach = 250.0
 
@@ -67,7 +70,7 @@ func show_cells(pos=Vector2(0, 0), width=4):
 
 func debug_click_circle():
 	
-	self.get_node("DebugNode2D/ClickCircle").set_draw_circle_arc(get_global_mouse_position(), 30, 0, 360,
+	dbclickcircle.set_draw_circle_arc(get_global_mouse_position(), 30, 0, 360,
 		Color(rand_range(0.0, 1.0), rand_range(0.0, 1.0), rand_range(0.0, 1.0)))
 
 func debug_break_distance():
@@ -120,13 +123,14 @@ func place_block():
 			problems.append(str("That tile's occupied with '",tile_under,"'!"))
 	
 	for problem in problems:
-		print(problem)
+		gui.add_chat_message(problem)
 
 func break_block():
 	var id = tile_under_cursor()
 	
-	# Add da block!
-	playerspr.add_item(id)
+	if id != -1:
+		# Add da block!
+		playerspr.add_item(id)
 	
 	# Delete 'gotten' block.
 	self.set_cell(mouse_grid_location().x, mouse_grid_location().y, -1)
