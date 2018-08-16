@@ -1,0 +1,38 @@
+{
+	"shapes_path": "res://tilesets/shapes.json",
+	"shapes_scale": 50,
+
+	"blocks": {
+	
+		"icon": {
+			"shape": "square",
+			"texture": "res://logo.png"
+		},
+	
+		"grass": {
+			"shape": "square",
+			"texture": "res://tilesets/grass.png"
+		},
+		
+		"grass_slope_NE": {
+			"texture": "res://tilesets/grass_slope_NE.png",
+			"shape": "slopeNE"
+		},
+
+		"grass_slope_SE": {
+			"texture": "res://tilesets/grass_slope_SE.png",
+			"shape": "slopeSE"
+		},
+
+		"spikeN": {
+			"texture": "res://tilesets/spikeN.png",
+			"shape": "spikeN"
+		},
+
+		"spikeS": {
+			"texture": "res://tilesets/spikeS.png",
+			"shape": "spikeS"
+		}
+	}
+	
+}

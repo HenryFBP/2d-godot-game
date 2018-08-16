@@ -16,7 +16,7 @@ custom_solver_bias = 0.0
 extents = Vector2( 9.66667, 10.2193 )
 _sections_unfolded = [ "Resource" ]
 
-[node name="Root" type="Node"]
+[node name="Root" type="Node" index="0"]
 
 _sections_unfolded = [ "Transform", "Visibility", "collision" ]
 

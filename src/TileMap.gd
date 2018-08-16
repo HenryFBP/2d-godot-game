@@ -5,7 +5,7 @@ extends TileMap
 const lib = 	preload("res://src/lib.gd")
 const blocks =	preload("res://tilesets/blocks.gd")
 const Shapes =	preload("res://tilesets/shapes.gd")
-var shapesdata
+onready var shapesdata = Shapes.parse_shapes_json("res://tilesets/shapes.json")
 
 onready var block_list = blocks.new()
 
@@ -171,20 +171,29 @@ func add_new_tile(id, texture, shape, factor=null, trans=Transform2D(0, Vector2(
 	
 	return id
 
+func load_tiles_from_json(path):
+	
+	var file = File.new()
+	file.open(path, File.READ)
 
-func load_new_tiles():
-
+	var json_str = file.get_as_text()
+	var data = JSON.parse(json_str).result
+	
+	print(data)
+	
+	var shapes = Shapes.parse_shapes_json(data['shapes_path'])
+	var shapes_scale = data['shapes_scale']
+	
 	var i = 10
-	
-	var grassslope = load("res://tilesets/grass_slope_NE.png")
-	
-	i = add_new_tile(i, load("res://icon.png"), 					shapesdata['square'],	50) + 1
-	i = add_new_tile(i, load("res://tilesets/grass.png"), 			shapesdata['square'], 	50) + 1
-	i = add_new_tile(i, load("res://tilesets/grass_slope_NE.png"), 	shapesdata['slopeNE'], 	50) + 1
-	i = add_new_tile(i, load("res://tilesets/grass_slope_SE.png"), 	shapesdata['slopeSE'], 	50) + 1
-	i = add_new_tile(i, load("res://tilesets/spikeN.png"),			shapesdata['spikeN'], 	50) + 1
-	i = add_new_tile(i, load("res://tilesets/spikeN.png"),			shapesdata['spikeS'], 	50) + 1
-	
+
+	for blockname in data['blocks']:
+
+		var block = data['blocks'][blockname]
+		var respath = block['texture']
+		var shape = shapes[block['shape']]
+		
+		i = add_new_tile(i, load(respath), shape, shapes_scale) + 1
+
 
 # Pants a region with one ID block.
 func paint_region(id, start=Vector2(0,0), end=Vector2(5,5)):
@@ -231,11 +240,11 @@ func paint_hollow_rect(id, start, end):
 
 func _ready():
 	
-	shapesdata = Shapes.new().data
-	
 	print(block_list.blocks)
 	
-	load_new_tiles()
+	#load_new_tiles()
+	
+	load_tiles_from_json("res://tilesets/tileset.json")
 	
 	print(self.tile_set.get_tiles_ids())
 	
