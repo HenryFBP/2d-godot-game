@@ -25,12 +25,12 @@
 		},
 
 		"spikeN": {
-			"texture": "res://tilesets/spikeN.png",
+			"texture": "res://tilesets/spike_N.png",
 			"shape": "spikeN"
 		},
 
 		"spikeS": {
-			"texture": "res://tilesets/spikeS.png",
+			"texture": "res://tilesets/spike_S.png",
 			"shape": "spikeS"
 		}
 	}
