@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/spikeN.png-f10d5632b7cc52ac3695f31b547c0251.stex"
+path="res://.import/spike_N.png-f0f063a1134473caa9ad29d5ce23cc3a.stex"
 
 [deps]
 
-source_file="res://tilesets/spikeN.png"
-dest_files=[ "res://.import/spikeN.png-f10d5632b7cc52ac3695f31b547c0251.stex" ]
+source_file="res://tilesets/spike_N.png"
+dest_files=[ "res://.import/spike_N.png-f0f063a1134473caa9ad29d5ce23cc3a.stex" ]
 
 [params]
 
